@@ -33,7 +33,7 @@ import uproot
 
 def test_strings(tmp_path):
     ROOT = pytest.importorskip("ROOT")
-    filename = tmp_path/'example.root'
+    filename = str(tmp_path/'example.root')
 
     with uproot.recreate(filename) as f:
         f['hello'] = 'world'
