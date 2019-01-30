@@ -30,6 +30,8 @@ env:
 
   - CONDA_PYTHON_VERION=pypy3.5 NUMPY="numpy>=1.15"
 
+name: "Python $CONDA_PYTHON_VERION $NUMPY"
+
 install:
   - wget -nv http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
