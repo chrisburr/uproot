@@ -1793,6 +1793,7 @@ def test_tree_cycle(tmp_path):
         assert branch1[i] == a[i]
         assert branch2[i] == b[i]
 
+@pytest.mark.skip(reason="Bigtest")
 def test_large_compress(tmp_path):
     filename = join(str(tmp_path), "example.root")
 
@@ -1805,6 +1806,7 @@ def test_large_compress(tmp_path):
     assert str(f.Get("b")) == "b" * ((2 ** 24) + 10)
     f.Close()
 
+@pytest.mark.skip(reason="Bigtest")
 def test_large_compress_uproot(tmp_path):
     filename = join(str(tmp_path), "example.root")
 
