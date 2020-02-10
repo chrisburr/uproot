@@ -265,7 +265,19 @@ class TTreeMethods(object):
                     else:
                         base, name = name[:index], name[index + 1:]
                         if base in submembers and isinstance(submembers[base], digDeeperTypes):
-                            submembers = streamerinfosmap[submembers[base]._fTypeName.rstrip(b"*")].members
+                            try:
+                                submembers = streamerinfosmap[submembers[base]._fTypeName.rstrip(b"*")].members
+                            except KeyError as e:
+                                if e.args[0] == b'ROOT::Math::PositionVector3D<ROOT::Math::Cartesian3D<double> >':
+                                     submembers = streamerinfosmap[b'ROOT::Math::PositionVector3D<ROOT::Math::Cartesian3D<double>,ROOT::Math::DefaultCoordinateSystemTag>'].members
+                                elif e.args[0] == b'ROOT::Math::DisplacementVector3D<ROOT::Math::Cartesian3D<double> >':
+                                     submembers = streamerinfosmap[b'ROOT::Math::DisplacementVector3D<ROOT::Math::Cartesian3D<double>,ROOT::Math::DefaultCoordinateSystemTag>'].members
+                                elif e.args[0] == b'ROOT::Math::PositionVector3D<ROOT::Math::Cartesian3D<float> >':
+                                     submembers = streamerinfosmap[b'ROOT::Math::PositionVector3D<ROOT::Math::Cartesian3D<float>,ROOT::Math::DefaultCoordinateSystemTag>'].members
+                                elif e.args[0] == b'ROOT::Math::DisplacementVector3D<ROOT::Math::Cartesian3D<float> >':
+                                     submembers = streamerinfosmap[b'ROOT::Math::DisplacementVector3D<ROOT::Math::Cartesian3D<float>,ROOT::Math::DefaultCoordinateSystemTag>'].members
+                                else:
+                                     raise
 
                 try:
                     name = name[:name.index(b"[")]
